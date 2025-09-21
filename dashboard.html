@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Dashboard - Agriculture App</title>
+<link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+
+<div id="dashboardPage">
+    <div class="header">
+        <div class="thought">"For Agriculture and Institute"</div>
+        <div class="user-name" id="userName">User</div>
+    </div>
+
+    <div class="container">
+        <nav class="sidebar">
+            <ul id="menuList">
+                <li><a href="soil-temperature.html">Soil Temperature</a></li>
+                <li><a href="soil-moisture.html">Soil Moisture</a></li>
+                <li><a href="current-weather.html">Current Weather</a></li>
+                <li><a href="watering-level.html">Watering Level</a></li>
+                <li><a href="rainwater-harvesting.html">Rainwater Harvesting</a></li>
+                <li><a href="emergency-sms.html">Emergency SMS</a></li>
+            </ul>
+        </nav>
+
+        <main class="main-content">
+            <h2>Welcome to your Dashboard</h2>
+            <p>Select an option from the sidebar to view details.</p>
+
+            <div class="sensor-status">
+                <div class="status-item">
+                    <div>Soil Temp Sensor</div>
+                    <div class="status-indicator active"></div>
+                </div>
+                <div class="status-item">
+                    <div>Soil Moisture Sensor</div>
+                    <div class="status-indicator active"></div>
+                </div>
+                <div class="status-item">
+                    <div>Weather Sensor</div>
+                    <div class="status-indicator active"></div>
+                </div>
+            </div>
+        </main>
+    </div>
+</div>
+
+<script>
+    // Extract user name from URL query parameter and display
+    function getUserName() {
+        const params = new URLSearchParams(window.location.search);
+        const email = params.get('email');
+        if(email) {
+            document.getElementById('userName').textContent = email.split('@')[0];
+        }
+    }
+    window.onload = getUserName;
+</script>
+
+</body>
+</html>
