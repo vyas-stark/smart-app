@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>AI & ML Student Timetable | 2025-26</title>
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+  <div class="container">
+    <!-- 1. Department Name -->
+    <h1>DEPARTMENT OF ARTIFICIAL INTELLIGENCE &amp; MACHINE LEARNING</h1>
+    <h2>TIME TABLE <br> ACADEMIC YEAR 2025 – 26 (ODD SEMESTER)</h2>
+    
+    <!-- 2. Thought for the Day -->
+    <div class="thought" id="thought"></div>
+
+    <!-- 3. Info Section -->
+    <div class="info">
+      <div id="date-time"></div>
+      <div>
+        <div><b>HOD :</b> Dr. M. velumani</div>
+        <div><b>Class Advisor :</b> Mrs. A. POOJA </div>
+        <div><b>Class Tutor :</b> Mr. S. Mohan Kumar</div>
+        <div><b>Class Rep Boys :</b> S. Bala Muragan</div>
+        <div><b>Class Rep Girls :</b> B. Hillary</div>
+      </div>
+    </div>
+
+    <!-- 4. Today Info -->
+    <div class="day-label"><span id="today-label"></span></div>
+
+    <!-- 5. Today's Timetable -->
+    <table id="today-table">
+      <thead>
+        <tr>
+          <th>Period</th>
+          <th>Time</th>
+          <th>Subject</th>
+          <th>Faculty</th>
+        </tr>
+      </thead>
+      <tbody></tbody>
+    </table>
+  </div>
+
+<script>
+/* Thoughts of the Day */
+const thoughts = [
+  "Success is not the key to happiness. Happiness is the key to success.",
+  "Education is the most powerful weapon you can use to change the world.",
+  "Learning never exhausts the mind.",
+  "Push yourself, because no one else is going to do it for you.",
+  "Small daily improvements are the key to staggering long-term results."
+];
+
+/* Timetable Data */
+const timetable = {
+"Monday": [
+  { period: 1, time: "9:00-9:50", subject: "Data Structures and Algorithms", faculty: "Mrs. V. Vandhana" },
+  { period: 2, time: "9:50-10:40", subject: "Discrete Mathematics", faculty: "Mrs. P. Lidiya" },
+  { period: 3, time: "10:55-11:45", subject: "Digital Principles and Computer Organization", faculty: "Mr. T. Kailasapathi" },
+  { period: 4, time: "11:45-12:35", subject: "Placement Activity", faculty: "-" },
+  { period: 5, time: "1:20-2:15", subject: "Data Science Laboratory", faculty: "Mrs. R. Selvanayaki" },
+  { period: 6, time: "2:15-3:05", subject: "Placement", faculty: "Mr. M . Abhishek" },
+  { period: 7, time: "3:20-4:05", subject: "Professional Development", faculty: "Mrs. J. Angeline Sheela" }
+],
+"Tuesday": [
+  { period: 1, time: "9:00-9:50", subject: "Foundations of Data Science", faculty: "Mrs. R. Selvanayaki" },
+  { period: 2, time: "9:50-10:40", subject: "Object Oriented Programming", faculty: "Ms. K. Anupriya" },
+  { period: 3, time: "10:55-11:45", subject: "Foundations of Data Science", faculty: "Mrs. R. Selvanayaki" },
+  { period: 4, time: "11:45-12:35", subject: "Discrete Mathematics", faculty: "Mrs. P. Lidiya" },
+  { period: 5, time: "1:20-2:15", subject: "Data Structures and Algorithms Laboratory", faculty: "Mrs. V. Vandhana" },
+  { period: 6, time: "2:15-3:05", subject: "", faculty: "" },
+  { period: 7, time: "3:20-4:05", subject: "Discrete Mathematics", faculty: "Mrs. P. Lidiya" },
+  { period: 8, time: "4:05-4:45", subject: "Tutor Ward Meeting", faculty: "Mrs. V. Vandhana" }
+],
+"Wednesday": [
+  { period: 1, time: "9:00-9:50", subject: "Data Structures and Algorithms", faculty: "Mrs. V. Vandhana" },
+  { period: 2, time: "9:50-10:40", subject: "Discrete Mathematics", faculty: "Mrs. P. Lidiya" },
+  { period: 3, time: "10:55-11:45", subject: "Object Oriented Programming", faculty: "Ms. K. Anupriya" },
+  { period: 4, time: "11:45-12:35", subject: "Data Structures and Algorithms", faculty: "Mrs. V. Vandhana" },
+  { period: 5, time: "1:20-2:15", subject: "Foundations of Data Science", faculty: "Mrs. R. Selvanayaki" },
+  { period: 6, time: "2:15-3:05", subject: "Object Oriented Programming Laboratory", faculty: "Ms. K. Anupriya" },
+  { period: 7, time: "3:20-4:05", subject: "Object Oriented Programming Laboratory", faculty: "Ms. K. Anupriya" }
+],
+"Thursday": [
+  { period: 1, time: "9:00-9:50", subject: "Discrete Mathematics", faculty: "Mrs. P. Lidiya" },
+  { period: 2, time: "9:50-10:40", subject: "Foundations of Data Science", faculty: "Mrs. R. Selvanayaki" },
+  { period: 3, time: "10:55-11:45", subject: "Object Oriented Programming", faculty: "Ms. K. Anupriya" },
+  { period: 4, time: "11:45-12:35", subject: "Library", faculty: "-" },
+  { period: 5, time: "1:20-2:15", subject: "Digital Principles and Computer Organization Laboratory", faculty: "Mr. T. Kailasapathi" },
+  { period: 6, time: "2:15-3:05", subject: "Digital Principles and Computer Organization Laboratory", faculty: "Mr. T. Kailasapathi" },
+  { period: 7, time: "3:20-4:05", subject: "Data Science Laboratory", faculty: "Mrs. R. Selvanayaki" }
+],
+"Friday": [
+  { period: 1, time: "9:00-9:50", subject: "Digital Principles and Computer Organization", faculty: "Mr. T. Kailasapathi" },
+  { period: 2, time: "9:50-10:40", subject: "Object Oriented Programming", faculty: "Ms. K. Anupriya" },
+  { period: 3, time: "10:55-11:45", subject: "Foundations of Data Science", faculty: "Mrs. R. Selvanayaki" },
+  { period: 4, time: "11:45-12:35", subject: "Data Structures and Algorithms", faculty: "Mrs. V. Vandhana" },
+  { period: 5, time: "1:20-2:15", subject: "Digital Principles and Computer Organization", faculty: "Mr. T. Kailasapathi" },
+  { period: 6, time: "2:15-3:05", subject: "Discrete Mathematics", faculty: "Mrs. P. Lidiya" },
+  { period: 7, time: "3:20-4:05", subject: "Data Structures and Algorithms Laboratory", faculty: "Mrs. V. Vandhana" }
+]
+};
+
+/* Weekdays */
+const weekdays = ["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"];
+
+/* Render Functions */
+function renderThought() {
+  let day = new Date().getDay();
+  let idx = (day > 0 && day < 6) ? day - 1 : 0;
+  document.getElementById("thought").textContent = "Thought for the Day: " + thoughts[idx];
+}
+function updateDateTime() {
+  let now = new Date();
+  document.getElementById("date-time").textContent =
+    now.toLocaleDateString() + " | " + now.toLocaleTimeString();
+}
+function renderTodayLabel() {
+  let wday = weekdays[new Date().getDay()];
+  document.getElementById("today-label").textContent = wday;
+}
+function renderTodayTable() {
+  let wday = weekdays[new Date().getDay()];
+  let rows = timetable[wday] || [];
+  let tbody = document.querySelector("#today-table tbody");
+  tbody.innerHTML = "";
+  if (!rows.length) {
+    let tr = document.createElement('tr');
+    tr.innerHTML = `<td colspan=4>No classes today</td>`;
+    tbody.appendChild(tr);
+    return;
+  }
+  rows.forEach(slot => {
+    let tr = document.createElement('tr');
+    tr.innerHTML = `<td>${slot.period}</td><td>${slot.time}</td><td>${slot.subject}</td><td>${slot.faculty}</td>`;
+    tbody.appendChild(tr);
+  });
+}
+
+/* Run on page load */
+renderThought();
+updateDateTime();
+renderTodayLabel();
+renderTodayTable();
+setInterval(updateDateTime, 1000);
+</script>
+</body>
+</html>
